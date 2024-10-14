@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--v-show 显示隐藏元素效果 Boolean-->
+        <!--给元素添加/删除内联样式 display:none-->
+        <h1 v-show="showBoolean">这是一个h1</h1>
+        <button @click="clickShow">v-show显示/隐藏</button>
+        <!--v-if 显示隐藏元素效果 Boolean-->
+        <!--添加/删除该元素-->
+        <h2 v-if="ifBoolean">这是一个h2</h2>
+        <button @click="clickIf">v-if显示/隐藏</button>
+        <!-- v-if 类似于 if,elseif else -->
+        <ul>
+            <li v-if="age<18">少年</li>
+            <li v-else-if="“age<30">青年</li>
+            <li v-else-if="age<60">中年</li>
+            <li v-else>老年</li>
+        </ul>
+        <!-- 对比使用 -->
+        <!-- v-show 频繁的切换显示效果
+        v-if在做显示隐藏时会消耗大量的性能 v-show只是添加一个样式-->
+
+        <!-- v-if 做初始化条件渲染或多条件判断时使用
+        v-show会添加样式消耗初始化渲染性能-->
+    </div>
+</body>
+
+</html>
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            showBoolean: true,
+            ifBoolean: true,
+            age: 19
+        },
+        methods: {
+            clickShow() {
+                this.showBoolean = !this.showBoolean
+            },
+            clickIf() {
+                this.ifBoolean = !this.ifBoolean
+            }
+        }
+    })
+</script>

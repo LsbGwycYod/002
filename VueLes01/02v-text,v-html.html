@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-text,v-html指令学习</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-text：文本渲染 - 用于写在标签之上 -->
+        <!-- 特点：会覆盖原有标签的内容 -->
+        <h1 v-text="msg">这是一个大大H1</h1>
+        <div v-text="tag"></div>
+
+        <!-- v-html: 文本渲染、标签文本渲染 - 写在标签之上 -->
+        <!-- 特点：会覆盖原有标签的内容 -->
+        <div v-html="msg">这是一个DIV</div>
+        <div v-html="tag">这是一个DIV</div>
+
+        <!-- {{ }}: 声明式渲染-（文本渲染） - 写在标签之内 -->
+        <!-- 特点：不会覆盖原有标签的内容 -->
+        <div>这是一个DIV {{ msg }}</div>
+        <div>{{ tag }}</div>
+
+        <!-- 声明式渲染一般用的频率比较高，它不仅可以渲染文本，还可以做计算、调用函数方法、调用过滤器等等 -->
+        <h1>{{ 1 + 1 }}</h1>
+        <h2>{{ 2 > 1 ? '错误' : '正确' }}</h2>
+    </div>
+</body>
+
+</html>
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            msg: '我是文本渲染',
+            tag: '<b>加粗</b><i>倾斜</i>'
+        }
+    })
+</script>

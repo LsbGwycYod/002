@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--v-on:DOM元素上的事件绑定，比如鼠标单击、键盘的按下抬起、输入框的输入等-->
+        <button v-on:click="clickBtn()">点击按钮</button>
+        <!--简写：@代替v-on-->
+        <button @dblclick="dblclickBtn()">双击按钮</button>
+    </div>
+</body>
+
+</html>
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+
+        },
+        methods: {
+            clickBtn: function() {
+                alert("Hello Vue!")
+            },
+            dblclickBtn() {
+                alert("Hello Dbl!")
+            }
+        }
+    })
+</script>

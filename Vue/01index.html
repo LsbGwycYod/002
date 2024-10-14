@@ -1,0 +1,33 @@
+<!-- 英文! + Tab/Enter -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- MVVM的设计理念如何体现？ -->
+    <!-- 第三步编写被vue实例控制的视图 - V（view）- 视图层 -->
+    <!-- {{ }} - 声明式渲染 -->
+    <div id="app">{{ msg }}</div>
+</body>
+
+</html>
+<!-- 第一步引入vue的包 -->
+<script src="./js/vue.js"></script>
+<script>
+    // 第二步创建vue的实例
+    new Vue({ // VM -（ViewModel）- 监听者、观察者
+            el: '#app', // 绑定视图
+            data: { // 定义数据 - M（model）- 数据层
+                msg: 'Hello Vue!'
+            }
+        })
+        // MVVM的设计理念：
+        // 当视图层View的数据展示发生改变，会通过viewmodel去修改data中的数据
+        // 当data中的数据被修改，同样会通过viewmodel直接去刷新视图，看到最新的效果
+        // 这就是数据双向绑定的理念
+</script>

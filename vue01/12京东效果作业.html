@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style12.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="wrap">
+            <a href="https://app.jd.com/" id="jd" @mouseenter="mouseShow" @mouseleave="mouseHide">手机京东</a>
+
+            <ul v-show="showBoolean" class="ulShow">
+                <li>
+                    <img src="img/jingdong.png" class="imgs">
+                    <div class="texts">
+                        <a href="https://app.jd.com/" class="fir-text">手机京东</a>
+                        <p class="under-text">新人专享大礼包</p>
+                        <div class="icons">
+                            <img src="img/iPhone.png">
+                            <img src="img/android.png">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <img src="img/jingdongWechat.jpg" class="imgs">
+                    <div class="texts">
+                        <p class="fir-text">关注京东微信</p>
+                        <p class="under-text">微信扫一扫关注<br>
+                            京东服务号订阅<br>
+                            更多促销优惠福利</p>
+                    </div>
+                </li>
+                <li>
+                    <img src="img//jingdongFinancial.jpg" class="imgs">
+                    <div class="texts">
+                        <a href="https://m.jr.jd.com/integrate/download/html/pc.html" class="fir-text">关注京东微信</a>
+                        <p class="under-text">新人专享大礼包</p>
+                        <div class="icons">
+                            <img src="img/iPhone.png">
+                            <img src="img/android.png">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            showBoolean:false
+        },
+        methods: {
+            mouseHide(){
+                this.showBoolean=false
+            },
+            mouseShow(){
+                this.showBoolean=true
+            }
+        }
+    })
+</script>
+<!--
+1.a标签手机京东 鼠标滑过颜色变红 离开颜色变灰
+2.ul设置样式需要和实际效果基本一致
+3.ul用v-for循环模拟数据显示
+4.鼠标滑过手机京东显示列表，离开隐藏列表
+-->

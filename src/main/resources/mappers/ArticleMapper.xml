@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.nbpt.lilingyi.blogmanage.mapper.ArticleMapper">
+
+    <resultMap id="BaseResultMap" type="cn.edu.nbpt.lilingyi.blogmanage.pojo.entity.Article">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="state" column="state" jdbcType="TINYINT"/>
+            <result property="author" column="author" jdbcType="VARCHAR"/>
+            <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+            <result property="publishTime" column="publish_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <resultMap id="CategoryMap" type="cn.edu.nbpt.lilingyi.blogmanage.pojo.entity.Category">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ArticleCategoryMap" type="cn.edu.nbpt.lilingyi.blogmanage.pojo.vo.ArticleCategoryVo" extends="BaseResultMap">
+        <collection property="categories" resultMap="CategoryMap" columnPrefix="category_">
+        </collection>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id,title,content,
+        state,author,category_id,
+        publish_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from article
+        where  id = #{id,jdbcType=INTEGER} 
+    </select>
+
+    <select id="pageArticle" resultMap="ArticleCategoryMap">
+        select
+            a.id,
+            a.title,
+            a.content,
+            a.state,
+            a.author,
+            a.category_id,
+            a.publish_time,
+            c.id as category_id,
+            c.name as category_name,
+            c.code as category_code
+        from article a left join category c on a.category_id = c.id
+        <where>
+            <if test="title != null and title != ''">
+                and a.title like concat('%',#{article.title},'%')
+            </if>
+            <if test="state != null">
+                and a.state = #{article.state}
+            </if>
+            <if test="author != null and author != ''">
+                and a.author like concat('%',#{article.author},'%')
+            </if>
+            <if test="categoryId != null">
+                and a.category_id = #{article.categoryId}
+            </if>
+        </where>
+        order by a.id,c.id
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from article
+        where  id = #{id,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.edu.nbpt.lilingyi.blogmanage.pojo.entity.Article" useGeneratedKeys="true">
+        insert into article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="title != null">title,</if>
+                <if test="content != null">content,</if>
+                <if test="state != null">state,</if>
+                <if test="author != null">author,</if>
+                <if test="categoryId != null">category_id,</if>
+                <if test="publishTime != null">publish_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=INTEGER},</if>
+                <if test="title != null">#{title,jdbcType=VARCHAR},</if>
+                <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+                <if test="state != null">#{state,jdbcType=TINYINT},</if>
+                <if test="author != null">#{author,jdbcType=VARCHAR},</if>
+                <if test="categoryId != null">#{categoryId,jdbcType=INTEGER},</if>
+                <if test="publishTime != null">#{publishTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.edu.nbpt.lilingyi.blogmanage.pojo.entity.Article">
+        update article
+        <set>
+                <if test="title != null">
+                    title = #{title,jdbcType=VARCHAR},
+                </if>
+                <if test="content != null">
+                    content = #{content,jdbcType=VARCHAR},
+                </if>
+                <if test="state != null">
+                    state = #{state,jdbcType=TINYINT},
+                </if>
+                <if test="author != null">
+                    author = #{author,jdbcType=VARCHAR},
+                </if>
+                <if test="categoryId != null">
+                    category_id = #{categoryId,jdbcType=INTEGER},
+                </if>
+                <if test="publishTime != null">
+                    publish_time = #{publishTime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=INTEGER} 
+    </update>
+</mapper>

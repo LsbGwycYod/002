@@ -32,7 +32,11 @@
         from category
         where  id = #{id,jdbcType=INTEGER} 
     </select>
-
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from category
+    </select>
     <select id="pageCategory" resultMap="CategoryArticleMap">
         select
             c.id,

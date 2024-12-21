@@ -9,14 +9,18 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 @Service
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     ArticleMapper articleMapper;
 
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return articleMapper.deleteByPrimaryKey(id);
+    public int deleteByPrimaryKey(List<Integer> ids) {
+        ids.forEach(id -> articleMapper.deleteByPrimaryKey(id));
+        return ids.size();
     }
 
     @Override
@@ -35,9 +39,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public PageBean<ArticleCategoryVo> pageArticle(Integer pageNum, Integer pageSize, String title, Integer state, String author, Integer categoryId) {
+    public List<Article> selectAll() {
+        return articleMapper.selectAll();
+    }
+
+    @Override
+    public PageBean<ArticleCategoryVo> pageArticle(Integer pageNum, Integer pageSize, String title, Integer state, String author, Integer categoryId, Date publishTimeBegin, Date publishTimeEnd) {
         PageHelper.startPage(pageNum, pageSize);
-        PageBean<ArticleCategoryVo> page = PageBean.page(articleMapper.pageArticle(title, state, author, categoryId));
+        PageBean<ArticleCategoryVo> page = PageBean.page(articleMapper.pageArticle(title, state, author, categoryId,publishTimeBegin, publishTimeEnd));
         return page;
     }
 }

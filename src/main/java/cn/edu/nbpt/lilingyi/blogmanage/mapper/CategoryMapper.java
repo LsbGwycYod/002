@@ -24,5 +24,7 @@ public interface CategoryMapper {
 
     int updateByPrimaryKeySelective(Category record);
 
+    List<Category> selectAll();
+
     List<CategoryArticleVo> pageCategory(@Param("id") Integer id, @Param("name") String name, @Param("code") String code);
 }

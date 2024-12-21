@@ -9,6 +9,8 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -16,8 +18,13 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryMapper categoryMapper;
 
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return categoryMapper.deleteByPrimaryKey(id);
+    public Category selectByPrimaryKey(Integer id) {
+        return categoryMapper.selectByPrimaryKey(id);
+    }
+    @Override
+    public int deleteByPrimaryKey(List<Integer> ids) {
+        ids.forEach(id->categoryMapper.deleteByPrimaryKey(id));
+        return ids.size();
     }
 
     @Override
@@ -26,13 +33,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category selectByPrimaryKey(Integer id) {
-        return categoryMapper.selectByPrimaryKey(id);
+    public int updateByPrimaryKeySelective(Category record) {
+        return categoryMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(Category record) {
-        return categoryMapper.updateByPrimaryKeySelective(record);
+    public List<Category> selectAll() {
+        return categoryMapper.selectAll();
     }
 
     @Override

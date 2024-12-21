@@ -34,7 +34,11 @@
         from article
         where  id = #{id,jdbcType=INTEGER} 
     </select>
-
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from article
+    </select>
     <select id="pageArticle" resultMap="ArticleCategoryMap">
         select
             a.id,
@@ -50,16 +54,22 @@
         from article a left join category c on a.category_id = c.id
         <where>
             <if test="title != null and title != ''">
-                and a.title like concat('%',#{article.title},'%')
+                and a.title like concat('%',#{title},'%')
             </if>
             <if test="state != null">
-                and a.state = #{article.state}
+                and a.state = #{state}
             </if>
             <if test="author != null and author != ''">
-                and a.author like concat('%',#{article.author},'%')
+                and a.author like concat('%',#{author},'%')
             </if>
             <if test="categoryId != null">
-                and a.category_id = #{article.categoryId}
+                and a.category_id = #{categoryId}
+            </if>
+            <if test="publishTimeBegin != null">
+                and a.publish_time &gt;= #{publishTimeBegin}
+            </if>
+            <if test="publishTimeEnd != null">
+                and a.publish_time &lt;= #{publishTimeEnd}
             </if>
         </where>
         order by a.id,c.id

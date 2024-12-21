@@ -2,6 +2,9 @@ package cn.edu.nbpt.lilingyi.blogmanage.pojo.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import cn.edu.nbpt.lilingyi.blogmanage.pojo.enums.StateTypeEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -43,6 +46,7 @@ public class Article implements Serializable {
     /**
      * 发布时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date publishTime;
 
     private static final long serialVersionUID = 1L;

@@ -1,10 +1,12 @@
 package cn.edu.nbpt.lilingyi.blogmanage.mapper;
 
 import cn.edu.nbpt.lilingyi.blogmanage.pojo.entity.Article;
+import cn.edu.nbpt.lilingyi.blogmanage.pojo.entity.Category;
 import cn.edu.nbpt.lilingyi.blogmanage.pojo.vo.ArticleCategoryVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,5 +26,12 @@ public interface ArticleMapper {
 
     int updateByPrimaryKeySelective(Article record);
 
-    List<ArticleCategoryVo> pageArticle(@Param("title") String title, @Param("state") Integer state, @Param("author") String author, @Param("categoryId") Integer categoryId);
+    List<Article> selectAll();
+
+    List<ArticleCategoryVo> pageArticle(@Param("title") String title,
+                                        @Param("state") Integer state,
+                                        @Param("author") String author,
+                                        @Param("categoryId") Integer categoryId,
+                                        @Param("publishTimeBegin") Date publishTimeBegin,
+                                        @Param("publishTimeEnd") Date publishTimeEnd);
 }
